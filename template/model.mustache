@@ -1,0 +1,33 @@
+package {{{packagePath}}}.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.annotation.*;
+
+
+{{#tableComment}}
+/**
+ * {{tableComment}}.
+ **/
+{{/tableComment}}
+@TableName("{{{tableName}}}")
+@Getter
+@Setter
+@ToString
+@Accessors(chain = true)
+public class {{{modelName}}} {
+
+{{#fields}}
+    {{#columnComment}}
+    /**
+     * {{{columnComment}}}.
+     */{{/columnComment}}{{#primaryKey}}
+    @TableId{{#autoIncrement}}(type = IdType.AUTO){{/autoIncrement}}{{/primaryKey}}
+    @TableField("{{columnName}}")
+    private {{{fieldType}}} {{fieldName}};
+
+{{/fields}}
+
+}

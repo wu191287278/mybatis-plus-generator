@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  shutdown: graceful
+spring:
+  application:
+    name: {{{artifact}}}
+  datasource:
+    url: "jdbc:mysql://localhost/simple_db?useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&allowMultiQueries=true&useServerPrepStmts=true&cachePrepStmts=true&prepStmtCacheSize=250&prepStmtCacheSqlLimit=2048"
+    username: root
+    password: root
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      max-lifetime: 1800000
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+    default-property-inclusion: NON_NULL
+  data:
+    redis:
+      host: localhost
+      repositories:
+        enabled: false
+      port: 6379
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  # 实体类包路径
+  type-aliases-package:  {{{packagePath}}}.entity
+  # mapper.xml 文件路径
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # 日志配置，开发环境可以开启，生产环境关闭
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启驼峰命名转换
+    map-underscore-to-camel-case: true
+  # 全局配置
+  global-config:
+    db-config:
+      # 主键类型：自增
+      id-type: AUTO
+      # 逻辑删除字段名
+      logic-delete-field: deleted
+      # 逻辑删除值（已删除）
+      logic-delete-value: 1
+      # 未删除值
+      logic-not-delete-value: 0
+
+logging:
+  level:
+    root: info
+    {{{packagePath}}}.repository: debug
+
