@@ -4,10 +4,12 @@ package {{{packagePath}}}.controller;
 import {{{packagePath}}}.domain.{{modelName}};
 import {{{packagePath}}}.service.{{modelName}}Service;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.web.bind.annotation.*;
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +41,7 @@ public class {{modelName}}Controller {
     * 根据 ID 获取.
     */
     @GetMapping("/{id}")
-    public {{modelName}} getById(@PathVariable Long id) {
+    public {{modelName}} getById(@PathVariable {{primaryField.fieldType}} id) {
     return {{lowerModelName}}Service.getById(id);
     }
 
@@ -52,8 +54,8 @@ public class {{modelName}}Controller {
         LambdaQueryWrapper<{{modelName}}> query = new LambdaQueryWrapper<{{modelName}}>()
         {{#fields}}     .eq(t.get{{firstUpFieldName}}() != null, {{modelName}}::get{{firstUpFieldName}}, t.get{{firstUpFieldName}}())
         {{/fields}};
-        Page<{{modelName}}> page = new Page<>(Page.of(pageNum, pageSize), query);
-        return {{lowerModelName}}Service.page(page);
+        Page<{{modelName}}> page = new Page<>(pageNum, pageSize);
+        return {{lowerModelName}}Service.page(page, query);
     }
 
 
@@ -61,15 +63,15 @@ public class {{modelName}}Controller {
     * 更新.
     */
     @PutMapping
-    public boolean update(@RequestBody User user) {
-        return {{lowerModelName}}Service.updateById(user);
+    public boolean update(@RequestBody {{modelName}} t) {
+        return {{lowerModelName}}Service.updateById(t);
     }
 
     /**
     * 删除.
     */
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Long id) {
+    public boolean delete(@PathVariable {{primaryField.fieldType}} id) {
         return {{lowerModelName}}Service.removeById(id);
     }
 }
