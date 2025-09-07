@@ -4,7 +4,11 @@ package {{{packagePath}}}.service;
 import {{{packagePath}}}.entity.{{modelName}};
 import com.baomidou.mybatisplus.extension.service.IService;
 
-
+{{#tableComment}}
+/**
+ * {{tableComment}}.
+ **/
+{{/tableComment}}
 public interface {{{modelName}}}Service extends IService<{{{modelName}}}> {
 
 }

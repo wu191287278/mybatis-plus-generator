@@ -6,16 +6,70 @@ import {{{packagePath}}}.service.{{modelName}}Service;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 
 
+{{#tableComment}}
+/**
+ * {{tableComment}}.
+ **/
+{{/tableComment}}
 @RequiredArgsConstructor
 @RequestMapping(value = "api/{{lowerModelName}}")
 @RestController
 public class {{modelName}}Controller {
 
+
     private final {{modelName}}Service {{lowerModelName}}Service;
 
 
+    /**
+    * 创建.
+    */
+    @PostMapping
+    public boolean create(@RequestBody {{modelName}} t) {
+        return {{lowerModelName}}Service.save(t);
+    }
+
+    /**
+    * 根据 ID 获取.
+    */
+    @GetMapping("/{id}")
+    public {{modelName}} getById(@PathVariable Long id) {
+    return {{lowerModelName}}Service.getById(id);
+    }
+
+
+    /**
+    * 分页查询.
+    */
+    @GetMapping
+    public IPage<{{modelName}}> search(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize, @RequestBody {{modelName}} t) {
+        LambdaQueryWrapper<{{modelName}}> query = new LambdaQueryWrapper<{{modelName}}>()
+        {{#fields}}     .eq(t.get{{firstUpFieldName}}() != null, {{modelName}}::get{{firstUpFieldName}}, t.get{{firstUpFieldName}}())
+        {{/fields}};
+        Page<{{modelName}}> page = new Page<>(Page.of(pageNum, pageSize), query);
+        return {{lowerModelName}}Service.page(page);
+    }
+
+
+    /**
+    * 更新.
+    */
+    @PutMapping
+    public boolean update(@RequestBody User user) {
+        return {{lowerModelName}}Service.updateById(user);
+    }
+
+    /**
+    * 删除.
+    */
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable Long id) {
+        return {{lowerModelName}}Service.removeById(id);
+    }
 }

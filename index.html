@@ -947,9 +947,15 @@
         let packageDir = packagePath.replaceAll(".", "/");
         let queryNodes = [];
         let modelNodes = [];
-        let serviceNodes = [];
-        let controllerNodes = [];
         let testNodes = [];
+        let controllerNodes = [];
+
+        let serviceNodes = [
+            {
+                text: "impl",
+                nodes: testNodes,
+            }
+            ];
         let nodes = [
             {
                 text: "entity",
@@ -985,10 +991,6 @@
                                 {
                                     text: packagePath,
                                     nodes: nodes,
-                                },
-                                {
-                                    text: packagePath + ".service.impl",
-                                    nodes: testNodes,
                                 }
                             ]
                         },
@@ -1000,21 +1002,7 @@
                             }]
                         }
                     ]
-                },
-                    {
-                        text: "test",
-                        nodes: [
-                            {
-                                text: "java",
-                                nodes: [
-                                    {
-                                        text: packagePath + ".service",
-                                        nodes: testNodes,
-                                    }
-                                ]
-                            }
-                        ]
-                    }
+                }
                 ]
             },
             {
