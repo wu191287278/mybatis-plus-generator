@@ -40,7 +40,7 @@ public class {{modelName}}Controller {
     /**
     * 根据 ID 获取.
     */
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public {{modelName}} getById(@PathVariable {{primaryField.fieldType}} id) {
     return {{lowerModelName}}Service.getById(id);
     }
@@ -50,7 +50,9 @@ public class {{modelName}}Controller {
     * 分页查询.
     */
     @GetMapping
-    public IPage<{{modelName}}> search(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize, @RequestBody {{modelName}} t) {
+    public IPage<{{modelName}}> search(@RequestParam(defaultValue = "1") Integer pageNum,
+                                       @RequestParam(defaultValue = "10") Integer pageSize,
+                                       @RequestBody {{modelName}} t) {
         LambdaQueryWrapper<{{modelName}}> query = new LambdaQueryWrapper<{{modelName}}>()
         {{#fields}}     .eq(t.get{{firstUpFieldName}}() != null, {{modelName}}::get{{firstUpFieldName}}, t.get{{firstUpFieldName}}())
         {{/fields}};
@@ -70,7 +72,7 @@ public class {{modelName}}Controller {
     /**
     * 删除.
     */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public boolean delete(@PathVariable {{primaryField.fieldType}} id) {
         return {{lowerModelName}}Service.removeById(id);
     }
