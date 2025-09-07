@@ -30,25 +30,25 @@ public class {{modelName}}Controller {
 
 
     /**
-    * 创建.
-    */
+     * 创建.
+     */
     @PostMapping
     public boolean create(@RequestBody {{modelName}} t) {
         return {{lowerModelName}}Service.save(t);
     }
 
     /**
-    * 根据 ID 获取.
-    */
+     * 根据 ID 获取.
+     */
     @GetMapping("{id}")
     public {{modelName}} getById(@PathVariable {{primaryField.fieldType}} id) {
-    return {{lowerModelName}}Service.getById(id);
+        return {{lowerModelName}}Service.getById(id);
     }
 
 
     /**
-    * 分页查询.
-    */
+     * 分页查询.
+     */
     @GetMapping
     public IPage<{{modelName}}> search(@RequestParam(defaultValue = "1") Integer pageNum,
                                        @RequestParam(defaultValue = "10") Integer pageSize,
@@ -62,8 +62,8 @@ public class {{modelName}}Controller {
 
 
     /**
-    * 更新.
-    */
+     * 更新.
+     */
     @PutMapping
     public boolean update(@RequestBody {{modelName}} t) {
         return {{lowerModelName}}Service.updateById(t);

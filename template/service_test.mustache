@@ -3,6 +3,7 @@ package {{{packagePath}}}.service.impl;
 
 import {{{packagePath}}}.entity.{{modelName}};
 import {{{packagePath}}}.mapper.{{modelName}}Mapper;
+import {{{packagePath}}}.service.{{{modelName}}}Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class {{{modelName}}}ServiceImpl extends ServiceImpl<{{{modelName}}}Mapper, {{{modelName}}}> {
+public class {{{modelName}}}ServiceImpl extends ServiceImpl<{{{modelName}}}Mapper, {{{modelName}}}> implements {{{modelName}}}Service {
 
     private final {{{modelName}}}Mapper {{{lowerModelName}}}Mapper;
 
