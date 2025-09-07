@@ -19,9 +19,9 @@ spring:
   data:
     redis:
       host: localhost
+      port: 6379
       repositories:
         enabled: false
-      port: 6379
 
 # MyBatis-Plus 配置
 mybatis-plus:
@@ -49,5 +49,5 @@ mybatis-plus:
 logging:
   level:
     root: info
-    {{{packagePath}}}.repository: debug
+    {{{packagePath}}}.mapper: debug
 
