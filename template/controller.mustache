@@ -52,10 +52,15 @@ public class {{modelName}}Controller {
     @GetMapping
     public IPage<{{modelName}}> search(@RequestParam(defaultValue = "1") Integer pageNum,
                                        @RequestParam(defaultValue = "10") Integer pageSize,
-                                       @RequestBody {{modelName}} t) {
+                                       {{modelName}} t) {
         LambdaQueryWrapper<{{modelName}}> query = new LambdaQueryWrapper<{{modelName}}>()
-        {{#fields}}     .eq(t.get{{firstUpFieldName}}() != null, {{modelName}}::get{{firstUpFieldName}}, t.get{{firstUpFieldName}}())
-        {{/fields}};
+            .orderByDesc(VisaCardPhysicalApply::get{{primaryField.firstUpFieldName}});
+        {{#fields}}
+
+        if (t.get{{firstUpFieldName}}() != null) {
+            query.eq({{modelName}}::get{{firstUpFieldName}}, t.get{{firstUpFieldName}}())
+        }
+        {{/fields}}
         Page<{{modelName}}> page = new Page<>(pageNum, pageSize);
         return {{lowerModelName}}Service.page(page, query);
     }
