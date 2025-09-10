@@ -27,8 +27,8 @@ public class {{{modelName}}} {
     /**
      * {{{columnComment}}}.
      */{{/columnComment}}{{#primaryKey}}
-    @TableId{{#autoIncrement}}(type = IdType.AUTO){{/autoIncrement}}{{/primaryKey}}
-    @TableField("{{columnName}}")
+    @TableId{{#autoIncrement}}(type = IdType.AUTO){{/autoIncrement}}{{/primaryKey}}{{^primaryKey}}
+    @TableField("{{columnName}}"){{/primaryKey}}
     private {{{fieldType}}} {{fieldName}};
 
 {{/fields}}
